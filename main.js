@@ -60,6 +60,17 @@ function toggleTheme() {
         themeBtn.innerText = '☀️';
         localStorage.setItem('theme', 'dark');
     }
+
+    // Reload Disqus if it exists to pick up the new theme color
+    if (typeof DISQUS !== 'undefined') {
+        DISQUS.reset({
+            reload: true,
+            config: function () {
+                this.page.identifier = window.location.pathname;
+                this.page.url = window.location.href;
+            }
+        });
+    }
 }
 
 // Initialize Theme
