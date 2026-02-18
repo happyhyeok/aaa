@@ -4,192 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로또 5게임 추천기</title>
-    <style>
-        body {
-            font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f0f2f5;
-            padding: 20px; /* 모바일 여백 */
-            box-sizing: border-box;
-        }
-
-        .container {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            text-align: center;
-            max-width: 600px;
-            width: 100%;
-        }
-
-        h1 {
-            color: #333;
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-        }
-
-        .result-area {
-            min-height: 350px; /* 결과 영역 높이 확보 */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 2rem;
-        }
-
-        .lotto-row {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #f9f9f9;
-            padding: 10px;
-            border-radius: 10px;
-            opacity: 0; /* 애니메이션 전 숨김 */
-            animation: fadeIn 0.5s forwards;
-        }
-
-        .row-label {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #555;
-            margin-right: 15px;
-            width: 30px; /* 정렬을 위한 고정 너비 */
-            text-align: left;
-        }
-
-        .numbers-group {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .ball {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            color: white;
-            font-size: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        /* 로또 공 색상 */
-        .yellow { background-color: #fbc400; text-shadow: 0 0 2px rgba(0,0,0,0.3); }
-        .blue { background-color: #69c8f2; }
-        .red { background-color: #ff7272; }
-        .gray { background-color: #aaaaaa; }
-        .green { background-color: #b0d840; }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: transform 0.1s, background-color 0.2s;
-            font-weight: bold;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-            transform: translateY(-2px);
-        }
-
-        button:active {
-            transform: translateY(1px);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
+        <button id="theme-toggle-btn" class="theme-toggle" onclick="toggleTheme()">🌙</button>
         <h1>🎰 이번 주 대박 기원</h1>
         
         <div class="result-area" id="result-area">
-            <div style="color: #aaa; padding: 50px 0;">
+            <div style="color: var(--sub-text); padding: 50px 0;">
                 아래 버튼을 눌러<br>5게임을 추천받으세요!
             </div>
         </div>
 
-        <button onclick="generateFiveGames()">5게임 추천받기</button>
+        <button class="generate-btn" onclick="generateFiveGames()">5게임 추천받기</button>
     </div>
 
-    <script>
-        function generateFiveGames() {
-            const resultArea = document.getElementById('result-area');
-            resultArea.innerHTML = ''; // 기존 결과 초기화
-            
-            const labels = ['A', 'B', 'C', 'D', 'E']; // 각 줄 라벨
-
-            labels.forEach((label, index) => {
-                // 1. 랜덤 번호 6개 생성 및 정렬
-                const numbers = getLottoNumbers();
-
-                // 2. HTML 요소 생성
-                const rowDiv = document.createElement('div');
-                rowDiv.className = 'lotto-row';
-                // 순차적으로 나타나는 애니메이션 딜레이 (0.1초씩 늦게)
-                rowDiv.style.animationDelay = `${index * 0.1}s`;
-
-                // 라벨 (A, B, C...)
-                const labelSpan = document.createElement('span');
-                labelSpan.className = 'row-label';
-                labelSpan.innerText = label;
-
-                // 공을 담을 컨테이너
-                const ballsDiv = document.createElement('div');
-                ballsDiv.className = 'numbers-group';
-
-                // 공 만들기
-                numbers.forEach(num => {
-                    const ball = document.createElement('div');
-                    ball.className = `ball ${getColorClass(num)}`;
-                    ball.innerText = num;
-                    ballsDiv.appendChild(ball);
-                });
-
-                // 조립
-                rowDiv.appendChild(labelSpan);
-                rowDiv.appendChild(ballsDiv);
-                resultArea.appendChild(rowDiv);
-            });
-        }
-
-        // 로또 번호 1세트(6개) 생성 함수
-        function getLottoNumbers() {
-            const numbers = new Set();
-            while(numbers.size < 6) {
-                numbers.add(Math.floor(Math.random() * 45) + 1);
-            }
-            return Array.from(numbers).sort((a, b) => a - b);
-        }
-
-        // 번호별 색상 결정 함수
-        function getColorClass(num) {
-            if (num <= 10) return 'yellow';
-            if (num <= 20) return 'blue';
-            if (num <= 30) return 'red';
-            if (num <= 40) return 'gray';
-            return 'green';
-        }
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>

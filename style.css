@@ -1,1 +1,150 @@
-/* Add styles here */
+:root {
+    --bg-color: #f0f2f5;
+    --container-bg: #ffffff;
+    --text-color: #333333;
+    --sub-text: #555555;
+    --row-bg: #f9f9f9;
+    --btn-bg: #4CAF50;
+    --btn-hover: #45a049;
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode {
+    --bg-color: #121212;
+    --container-bg: #1e1e1e;
+    --text-color: #e0e0e0;
+    --sub-text: #b0b0b0;
+    --row-bg: #2d2d2d;
+    --btn-bg: #388E3C;
+    --btn-hover: #2E7D32;
+    --shadow: rgba(0, 0, 0, 0.5);
+}
+
+body {
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 20px;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    background-color: var(--container-bg);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px var(--shadow);
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    position: relative;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: auto;
+    color: var(--text-color);
+}
+
+h1 {
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.result-area {
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 2rem;
+}
+
+.lotto-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--row-bg);
+    padding: 10px;
+    border-radius: 10px;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+    transition: background-color 0.3s;
+}
+
+.row-label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--sub-text);
+    margin-right: 15px;
+    width: 30px;
+    text-align: left;
+}
+
+.numbers-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.ball {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.yellow { background-color: #fbc400; text-shadow: 0 0 2px rgba(0,0,0,0.3); }
+.blue { background-color: #69c8f2; }
+.red { background-color: #ff7272; }
+.gray { background-color: #aaaaaa; }
+.green { background-color: #b0d840; }
+
+.generate-btn {
+    background-color: var(--btn-bg);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.1s, background-color 0.2s;
+    font-weight: bold;
+    width: 100%;
+    max-width: 300px;
+}
+
+.generate-btn:hover {
+    background-color: var(--btn-hover);
+    transform: translateY(-2px);
+}
+
+.generate-btn:active {
+    transform: translateY(1px);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
