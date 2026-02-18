@@ -3,22 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로또 5게임 추천기</title>
+    <title>동물상 테스트 & 로또 추천</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
         <button id="theme-toggle-btn" class="theme-toggle" onclick="toggleTheme()">🌙</button>
-        <h1>🎰 이번 주 대박 기원</h1>
         
-        <div class="result-area" id="result-area">
-            <div style="color: var(--sub-text); padding: 50px 0;">
-                아래 버튼을 눌러<br>5게임을 추천받으세요!
+        <section class="animal-test">
+            <h1>🐶 인공지능 동물상 테스트</h1>
+            <p class="description">강아지상일까, 고양이상일까? 사진을 올려 확인해보세요!</p>
+            
+            <div id="upload-area" class="upload-box" onclick="document.getElementById('file-input').click()">
+                <img id="face-image" src="" style="display: none; width: 100%; border-radius: 10px;">
+                <div id="upload-label">
+                    <span class="upload-icon">📸</span>
+                    <p>사진을 클릭해서 업로드하세요</p>
+                </div>
             </div>
-        </div>
+            <input type="file" id="file-input" accept="image/*" style="display: none;" onchange="readURL(this);">
+            
+            <div id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>AI가 분석 중입니다...</p>
+            </div>
 
-        <button class="generate-btn" onclick="generateFiveGames()">5게임 추천받기</button>
+            <div id="result-message" class="result-msg"></div>
+            <div id="label-container" class="prediction-list"></div>
+        </section>
+
+        <hr class="divider">
+
+        <section class="lotto-section">
+            <h1>🎰 로또 5게임 추천기</h1>
+            <div class="result-area" id="result-area">
+                <div style="color: var(--sub-text); padding: 30px 0;">
+                    아래 버튼을 눌러 추천받으세요!
+                </div>
+            </div>
+            <button class="generate-btn" onclick="generateFiveGames()">5게임 추천받기</button>
+        </section>
 
         <div class="contact-form">
             <h3>🤝 제휴 문의</h3>
@@ -30,26 +55,19 @@
         </div>
 
         <div id="disqus_thread" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--shadow);"></div>
-        <script>
-            /**
-            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-            /*
-            var disqus_config = function () {
-            this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-            };
-            */
-            (function() { // DON'T EDIT BELOW THIS LINE
-            var d = document, s = d.createElement('script');
-            s.src = 'https://abc-mjwoq3kdkr.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-            })();
-        </script>
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
     <script src="main.js"></script>
+    <script>
+        (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://abc-mjwoq3kdkr.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+    </script>
 </body>
 </html>
