@@ -144,6 +144,61 @@ h1 {
     transform: translateY(1px);
 }
 
+/* Contact Form Styles */
+.contact-form {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--shadow);
+    text-align: left;
+}
+
+.contact-form h3 {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-form input, 
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--shadow);
+    background-color: var(--row-bg);
+    color: var(--text-color);
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.contact-form textarea {
+    height: 100px;
+    resize: none;
+}
+
+.contact-form button {
+    background-color: var(--sub-text);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    width: 100%;
+    max-width: none;
+}
+
+.contact-form button:hover {
+    background-color: var(--text-color);
+}
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
